@@ -1,0 +1,77 @@
+{
+  "name": "lucio-tree-transfer",
+  "version": "0.0.1",
+  "description": "react tree transfer components",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "lucio start",
+    "eslint": "lucio eslint",
+    "prebuild:gh-pages": "npm run eslint && npm run test",
+    "build:gh-pages": "npm run test && lucio build",
+    "prebuild": "npm run eslint && npm run test",
+    "build": "lucio library -c .luciorc.lib.js",
+    "test": "jest",
+    "coverage": "jest --coverage",
+    "codecov": "codecov --token=28bebdf1-7240-4033-87bb-1c7143cf660e"
+  },
+  "jest": {
+    "setupFiles": [
+    "./test/setup.js"
+    ],
+    "testMatch": [
+    "**/?(*.)(spec|test|e2e).js?(x)"
+    ],
+    "moduleFileExtensions": [
+    "js",
+    "jsx"
+    ],
+    "transform": {
+    "^.+\\.js$": "babel-jest"
+    },
+    "moduleNameMapper": {
+    "\\.(css|less)$": "<rootDir>/test/styleMock.js"
+    }
+  },
+  "babel": {
+    "presets": [
+    "es2015",
+    "stage-0",
+    "react"
+    ],
+    "plugins": [
+    "transform-decorators-legacy",
+    "transform-class-properties"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luciojs/tree-transfer.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/luciojs/tree-transfer/issues"
+  },
+  "homepage": "https://github.com/luciojs/tree-transfer#readme",
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "prop-types": "^15.6.0"
+  },
+  "devDependencies": {
+    "babel-jest": "^22.0.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-preset-stage-0": "^6.24.1",
+    "enzyme": "^3.2.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "jest": "^22.0.3",
+    "jsdom": "^11.5.1",
+    "lucio-cli": "^1.1.0-beta.2",
+    "rimraf": "^2.6.2"
+  },
+  "peerDependencies": {
+    "react": ">=16.0.0",
+    "react-dom": ">=16.0.0"
+  }
+}
+  

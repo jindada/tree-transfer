@@ -1,0 +1,35 @@
+{
+  "parser"  : "babel-eslint",
+  "extends" : [
+    "standard",
+    "standard-react"
+  ],
+  "env": {
+    "browser": true,
+    "node": true,
+    "jasmine": true,
+    "jest": true,
+    "es6": true
+  },
+  "plugins": [
+    "babel"
+  ],
+  "rules": {
+    "camelcase": 1,
+    "react/jsx-no-bind": 0,
+    "handle-callback-err":1,
+    "space-before-function-paren":0,
+    "comma-dangle": 0,
+    "quotes": 0,
+    "no-console": 0,
+    "no-debugger": 1,
+    "no-var": 1,
+    "semi": [1, "always"],
+    "no-trailing-spaces": 0,
+    "eol-last": 0,
+    "no-underscore-dangle": 0,
+    "no-alert": 0,
+    "no-lone-blocks": 0,
+    "jsx-quotes": 1
+  }
+}
