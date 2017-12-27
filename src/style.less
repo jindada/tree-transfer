@@ -1,0 +1,56 @@
+@prefix: ~"tree-transfer";
+@color: rgba(0,0,0,.65);
+@borderColor: #d9d9d9;
+
+.lucio-@{prefix} {
+  position: relative;
+  line-height: 1.5;
+  font-family: Consolas,Menlo,Courier,monospace;
+  color: @color;
+  .@{prefix}-panel {
+    width: 250px;
+    height: 300px;
+    font-size: 12px;
+    border: 1px solid @borderColor;
+    display: inline-block;
+    border-radius: 4px;
+    vertical-align: middle;
+    position: relative;
+    padding-top: 34px;
+    &-header {
+      line-height: 1.5;
+      padding: 6px 12px;
+      border-radius: 4px 4px 0 0;
+      border-bottom: 1px solid @borderColor;
+      overflow: hidden;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      &-title {
+        position: absolute;
+        right: 12px;
+        top: 9px;
+      }
+    }
+    &-body {
+      height: 100%;
+      font-size: 14px;
+      position: relative;
+      overflow: auto;
+      &-content {
+
+      }
+    }
+  }
+  .@{prefix}-operation {
+    display: inline-block;
+    overflow: hidden;
+    margin: 0 8px;
+    vertical-align: middle;
+    button.ant-btn {
+      display: block;
+      margin: 4px 0;
+    }
+  }
+}

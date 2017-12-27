@@ -16,31 +16,31 @@
   },
   "jest": {
     "setupFiles": [
-    "./test/setup.js"
+      "./test/setup.js"
     ],
     "testMatch": [
-    "**/?(*.)(spec|test|e2e).js?(x)"
+      "**/?(*.)(spec|test|e2e).js?(x)"
     ],
     "moduleFileExtensions": [
-    "js",
-    "jsx"
+      "js",
+      "jsx"
     ],
     "transform": {
-    "^.+\\.js$": "babel-jest"
+      "^.+\\.js$": "babel-jest"
     },
     "moduleNameMapper": {
-    "\\.(css|less)$": "<rootDir>/test/styleMock.js"
+      "\\.(css|less)$": "<rootDir>/test/styleMock.js"
     }
   },
   "babel": {
     "presets": [
-    "es2015",
-    "stage-0",
-    "react"
+      "es2015",
+      "stage-0",
+      "react"
     ],
     "plugins": [
-    "transform-decorators-legacy",
-    "transform-class-properties"
+      "transform-decorators-legacy",
+      "transform-class-properties"
     ]
   },
   "repository": {
@@ -54,6 +54,7 @@
   },
   "homepage": "https://github.com/luciojs/tree-transfer#readme",
   "dependencies": {
+    "antd": "^3.0.3",
     "classnames": "^2.2.5",
     "prop-types": "^15.6.0"
   },
@@ -74,4 +75,3 @@
     "react-dom": ">=16.0.0"
   }
 }
-  
