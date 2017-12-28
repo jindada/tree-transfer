@@ -18,8 +18,8 @@
     position: relative;
     padding-top: 34px;
     &-header {
-      line-height: 1.5;
-      padding: 6px 12px;
+      padding: 8px 12px;
+      height: 34px;
       border-radius: 4px 4px 0 0;
       border-bottom: 1px solid @borderColor;
       overflow: hidden;
@@ -27,10 +27,12 @@
       top: 0;
       left: 0;
       width: 100%;
+      .ant-checkbox-wrapper {
+        font-size: 12px;
+      }
       &-title {
         position: absolute;
         right: 12px;
-        top: 9px;
       }
     }
     &-body {

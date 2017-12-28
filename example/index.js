@@ -9,84 +9,84 @@ class App extends Component {
     this.state = {
       source: [
         {
-          "key": "0",
-          "title": "哈尔滨",
+          "value": "0",
+          "label": "哈尔滨",
           "children": [
             {
-              "key": "0-1",
-              "title": "南岗区",
+              "value": "0-1",
+              "label": "南岗区",
               "children": [
                 {
-                  "key": "0-1-1",
-                  "title": "黑龙江大学"
+                  "value": "0-1-1",
+                  "label": "黑龙江大学"
                 },
                 {
-                  "key": "0-1-2",
-                  "title": "哈尔滨理工大学"
+                  "value": "0-1-2",
+                  "label": "哈尔滨理工大学"
                 },
                 {
-                  "key": "0-1-3",
-                  "title": "哈尔滨工业大学"
+                  "value": "0-1-3",
+                  "label": "哈尔滨工业大学"
                 }
               ]
             },
             {
-              "key": "0-2",
-              "title": "香坊区",
+              "value": "0-2",
+              "label": "香坊区",
               "children": [
                 {
-                  "key": "0-2-1",
-                  "title": "东北农业大学"
+                  "value": "0-2-1",
+                  "label": "东北农业大学"
                 },
                 {
-                  "key": "0-2-2",
-                  "title": "东北林业大学"
+                  "value": "0-2-2",
+                  "label": "东北林业大学"
                 }
               ]
             },
             {
-              "key": "0-3",
-              "title": "松北区",
+              "value": "0-3",
+              "label": "松北区",
               "children": [
                 {
-                  "key": "0-3-1",
-                  "title": "哈尔滨师范大学"
+                  "value": "0-3-1",
+                  "label": "哈尔滨师范大学"
                 },
                 {
-                  "key": "0-3-2",
-                  "title": "黑龙江科技大学"
+                  "value": "0-3-2",
+                  "label": "黑龙江科技大学"
                 }
               ]
             }
           ]
         },
         {
-          "key": "1",
-          "title": "齐齐哈尔",
+          "value": "1",
+          "label": "齐齐哈尔",
           "children": [
             {
-              "key": "1-1",
-              "title": "A区",
+              "value": "1-1",
+              "label": "A区",
               "children": [
                 {
-                  "key": "1-1-1",
-                  "title": "齐齐哈尔大学"
+                  "value": "1-1-1",
+                  "label": "齐齐哈尔大学"
                 }
               ]
             }
           ]
         },
         {
-          "key": "2",
-          "title": "佳木斯",
+          "value": "2",
+          "label": "佳木斯",
           "children": [
             {
-              "key": "2-1",
-              "title": "B区",
+              "value": "2-1",
+              "label": "B区",
               "children": [
                 {
-                  "key": "2-1-1",
-                  "title": "佳木斯大学"
+                  "value": "2-1-1",
+                  "label": "佳木斯大学"
                 }
               ]
             }
@@ -97,10 +97,16 @@ class App extends Component {
     };
   }
 
+  onChange = (target) => {
+    this.setState({
+      target
+    });
+  }
+
   render() {
     return (
       <div className="lucio-tree-transfer-example">
-        <TreeTransfer {...this.state} />
+        <TreeTransfer {...this.state} rowKey="value" rowTitle="label" onChange={this.onChange} />
       </div>
     );
   }

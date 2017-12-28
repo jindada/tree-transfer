@@ -13,7 +13,7 @@ const TreeNode = Tree.TreeNode;
 class TreeTransfer extends Component {
   constructor(props) {
     super(props);
-    const { treeNode, listData, leafKeys } = this.init();
+    const { treeNode, listData, leafKeys } = this.init(props);
     this.state = {
       treeNode,
       listData,
@@ -23,8 +23,19 @@ class TreeTransfer extends Component {
     };
   }
 
-  init = () => {
-    const { source, target, rowKey, rowTitle, rowChildren } = this.props;
+  componentWillReceiveProps(nextProps) {
+    const { treeNode, listData, leafKeys } = this.init(nextProps);
+    this.setState({
+      treeNode,
+      listData,
+      leafKeys,
+      treeCheckedKeys: listData.map(({key}) => key),
+      listCheckedKeys: []
+    });
+  }
+
+  init = (props) => {
+    const { source, target, rowKey, rowTitle, rowChildren } = props;
 
     const leafKeys = [];  // 叶子节点集合
     const listData = [];  // 列表数据
@@ -45,8 +56,6 @@ class TreeTransfer extends Component {
         );
       }
     });
-
-    console.log(difference([], [2, 3]));
 
     return {
       treeNode: loop(source),
@@ -75,13 +84,6 @@ class TreeTransfer extends Component {
     }
   }
 
-  // 点击toRight button
-  onRightClick = () => {
-    this.setState({
-      
-    })
-  }
-
   // 点击toLeft button
   onLeftClick = () => {
     
@@ -108,6 +110,26 @@ class TreeTransfer extends Component {
       onChange: (e) => this.listOnCheck(e, listData.map(({key}) => key))
     };
 
+    const operaRightButtonProps = {
+      type: 'primary',
+      icon: 'right',
+      size: 'small',
+      disabled: difference(treeCheckedKeys, listData.map(({key}) => key)).length === 0 && difference(listData.map(({key}) => key), treeCheckedKeys).length === 0,
+      onClick: () => {
+        this.props.onChange && this.props.onChange(this.state.treeCheckedKeys);
+      }
+    };
+
+    const operaLeftButtonProps = {
+      type: 'primary',
+      icon: 'left',
+      size: 'small',
+      disabled: listCheckedKeys.length === 0,
+      onClick: () => {
+        this.props.onChange && this.props.onChange(this.state.listData.map(({key}) => key).filter(key => this.state.listCheckedKeys.indexOf(key) < 0));
+      }
+    };
+
     return (
       <div className={treeTransferClass}>
         <div className="tree-transfer-panel tree-transfer-panel-left">
@@ -124,8 +146,8 @@ class TreeTransfer extends Component {
           </div>
         </div>
         <div className="tree-transfer-operation">
-          <Button type="primary" icon="right" size="small" disabled={difference(treeCheckedKeys, listData.map(({key}) => key)).length === 0} />
-          <Button type="primary" icon="left" size="small" disabled={listCheckedKeys.length === 0} />
+          <Button {...operaRightButtonProps} />
+          <Button {...operaLeftButtonProps} />
         </div>
         <div className="tree-transfer-panel tree-transfer-panel-right">
           <div className="tree-transfer-panel-header">
@@ -160,6 +182,7 @@ TreeTransfer.propTypes = {
   target: PropTypes.array,
   sourceTitle: PropTypes.string,
   targetTitle: PropTypes.string,
+  onChange: PropTypes.func
 };
 
 TreeTransfer.defaultProps = {
