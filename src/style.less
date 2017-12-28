@@ -35,11 +35,25 @@
     }
     &-body {
       height: 100%;
-      font-size: 14px;
+      font-size: 12px;
       position: relative;
       overflow: auto;
       &-content {
-
+        padding: 0px;
+        .ant-tree {
+          font-size: 12px;
+        }
+        li {
+          padding: 8px 8px 8px 12px;
+          min-height: 32px;
+          transition: all .3s;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          &:hover {
+            background-color: #d2eafb;
+          }
+        }
       }
     }
   }
