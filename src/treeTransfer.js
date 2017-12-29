@@ -9,45 +9,67 @@ import uniq from 'lodash.uniq';
 import difference from 'lodash.difference';
 import './style.less';
 const TreeNode = Tree.TreeNode;
+const Search = Input.Search;
 
 class TreeTransfer extends Component {
   constructor(props) {
     super(props);
-    const { treeNode, listData, leafKeys } = this.init(props);
+    const { treeNode, listData, leafKeys } = this.generate(props);
+    const treeCheckedKeys = listData.map(({key}) => key);
     this.state = {
       treeNode,
       listData,
       leafKeys,
-      treeCheckedKeys: listData.map(({key}) => key),
-      listCheckedKeys: []
+      treeCheckedKeys,
+      treeExpandedKeys: treeCheckedKeys,
+      treeAutoExpandParent: true, // 自动展开父节点 初始为true 有展开操作的时候为false
+      listCheckedKeys: [],
+      treeSearchKey: '',
+      listSearchKey: '',
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    const { treeNode, listData, leafKeys } = this.init(nextProps);
+    const { treeNode, listData, leafKeys } = this.generate(nextProps);
+    const treeCheckedKeys = listData.map(({key}) => key);
     this.setState({
       treeNode,
       listData,
       leafKeys,
-      treeCheckedKeys: listData.map(({key}) => key),
-      listCheckedKeys: []
+      treeCheckedKeys,
     });
   }
 
-  init = (props) => {
-    const { source, target, rowKey, rowTitle, rowChildren } = props;
-
+  generate = (props) => {
+    // 搜索的时候 自动展开父节点设为true
+    const { source, target, rowKey, rowTitle, rowChildren, showSearch } = props;
+    const { treeSearchKey } = this.state;
     const leafKeys = [];  // 叶子节点集合
     const listData = [];  // 列表数据
 
     const loop = data => data.map(item => {
       const { [rowChildren]: children, [rowKey]: key, [rowTitle]: title, ...otherProps } = item;
       if (children === undefined) {
-        leafKeys.push(key);
+        if (showSearch && treeSearchKey.length > 0) { // if tree searching
+          if (title.indexOf(treeSearchKey) > -1) {
+            leafKeys.push(key);
+            const index = title.indexOf(treeSearchKey);
+            const searchTitle = (
+              <span>
+                {title.substr(0, index)}
+                <span style={{ color: '#f50' }}>{treeSearchKey}</span>
+                {title.substr(index + treeSearchKey.length)}
+              </span>
+            );
+            return <TreeNode key={key} title={searchTitle} isLeaf {...otherProps} />;
+          }
+        } else {
+          leafKeys.push(key); 
+        }
         if (target.indexOf(key) > -1) {
           listData.push({ key, title });
+          return <TreeNode key={key} title={title} isLeaf {...otherProps} />;
         }
-        return <TreeNode key={key} title={title} isLeaf {...otherProps} />;
       } else {
         return (
           <TreeNode key={key} title={title} {...otherProps}>
@@ -84,15 +106,25 @@ class TreeTransfer extends Component {
     }
   }
 
-  // 点击toLeft button
-  onLeftClick = () => {
-    
+  // 左侧树搜索 onChange 
+  onTreeSearch = (e) => {
+    this.setState({
+      listSearchKey: e.target.value
+    });
+  }
+
+  // 右侧列表搜索 onChange 
+  onListSearch = (e) => {
+    this.setState({
+      listSearchKey: e.target.value
+    });
   }
 
   render() {
-    const { className, sourceTitle, targetTitle } = this.props;
-    const { treeNode, listData, leafKeys, treeCheckedKeys, listCheckedKeys } = this.state;
-    
+    const { className, sourceTitle, targetTitle, showSearch } = this.props;
+    const { treeNode, listData, leafKeys, treeCheckedKeys, listCheckedKeys, treeExpandedKeys, treeAutoExpandParent, listSearchKey } = this.state;
+    const listNode = listData.filter(item => showSearch ? item.title.indexOf(listSearchKey) > -1 : true);
+
     const treeTransferClass = classNames({
       'lucio-tree-transfer': true,
       [className]: !!className
@@ -101,7 +133,16 @@ class TreeTransfer extends Component {
     const treeProps = {
       checkable: true,
       checkedKeys: treeCheckedKeys,
-      onCheck: this.treeOnCheck
+      onCheck: this.treeOnCheck,
+      expandedKeys: treeExpandedKeys,
+      autoExpandParent: treeAutoExpandParent,
+      onExpand: (expandedKeys) => {
+        console.log(expandedKeys);
+        this.setState({
+          treeAutoExpandParent: false,
+          treeExpandedKeys: expandedKeys,
+        });
+      }
     };
 
     const listHeaderCheckProps = {
@@ -126,6 +167,9 @@ class TreeTransfer extends Component {
       size: 'small',
       disabled: listCheckedKeys.length === 0,
       onClick: () => {
+        this.setState({
+          listCheckedKeys: []
+        });
         this.props.onChange && this.props.onChange(this.state.listData.map(({key}) => key).filter(key => this.state.listCheckedKeys.indexOf(key) < 0));
       }
     };
@@ -139,6 +183,7 @@ class TreeTransfer extends Component {
           </div>
           <div className="tree-transfer-panel-body">
             <div className="tree-transfer-panel-body-content">
+              {showSearch ? <div className="tree-transfer-panel-body-content-search"><Search placeholder="请输入搜索关键字" /></div> : null}
               <Tree {...treeProps}>
                 {treeNode}
               </Tree>
@@ -152,13 +197,14 @@ class TreeTransfer extends Component {
         <div className="tree-transfer-panel tree-transfer-panel-right">
           <div className="tree-transfer-panel-header">
             <Checkbox {...listHeaderCheckProps} />
-            <span className="tree-transfer-panel-header-select">{`${listCheckedKeys.length > 0 ? `${listCheckedKeys.length}/` : ''}${listData.length}`} 条数据</span>
+            <span className="tree-transfer-panel-header-select">{`${listCheckedKeys.length > 0 ? `${listCheckedKeys.length}/` : ''}${listNode.length}`} 条数据</span>
             <span className="tree-transfer-panel-header-title">{targetTitle}</span>
           </div>
           <div className="tree-transfer-panel-body">
             <ul className="tree-transfer-panel-body-content">
+              {showSearch ? <div className="tree-transfer-panel-body-content-search"><Search placeholder="请输入搜索关键字" onChange={this.onListSearch} /></div> : null}
               {
-                listData.map(item => (
+                listNode.map(item => (
                   <li key={item.key}>
                     <Checkbox checked={listCheckedKeys.indexOf(item.key) > -1} onChange={(e) => this.listOnCheck(e, [item.key])} />
                     <span>{item.title}</span>
@@ -182,7 +228,8 @@ TreeTransfer.propTypes = {
   target: PropTypes.array,
   sourceTitle: PropTypes.string,
   targetTitle: PropTypes.string,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  showSearch: PropTypes.bool
 };
 
 TreeTransfer.defaultProps = {
@@ -192,7 +239,8 @@ TreeTransfer.defaultProps = {
   source: [],
   target: [],
   sourceTitle: '源数据',
-  targetTitle: '目的数据'
+  targetTitle: '目的数据',
+  showSearch: false
 };
 
 export default TreeTransfer;

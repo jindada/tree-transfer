@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import './style.less';
 import TreeTransfer from '../src';
+import './style.less';
 
 class App extends Component {
   constructor(props) {
@@ -106,7 +106,10 @@ class App extends Component {
   render() {
     return (
       <div className="lucio-tree-transfer-example">
+        <p className="pkname">lucio-tree-transfer</p>
         <TreeTransfer {...this.state} rowKey="value" rowTitle="label" onChange={this.onChange} />
+        <TreeTransfer {...this.state} rowKey="value" rowTitle="label" onChange={this.onChange} showSearch />
+        <div className="gh-ribbon"><a href="https://github.com/luciojs/tree-transfer" target="_blank">Fork me on GitHub</a></div>
       </div>
     );
   }
