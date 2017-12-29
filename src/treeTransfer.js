@@ -30,46 +30,46 @@ class TreeTransfer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { treeNode, listData, leafKeys } = this.generate(nextProps);
+    const { treeNode, listData, leafKeys } = this.generate(nextProps, this.state);
     const treeCheckedKeys = listData.map(({key}) => key);
     this.setState({
       treeNode,
       listData,
       leafKeys,
-      treeCheckedKeys,
+      treeCheckedKeys
     });
   }
 
-  generate = (props) => {
-    // 搜索的时候 自动展开父节点设为true
+  generate = (props, state = {}) => {
     const { source, target, rowKey, rowTitle, rowChildren, showSearch } = props;
-    const { treeSearchKey } = this.state;
+    const { treeSearchKey } = state;
+
     const leafKeys = [];  // 叶子节点集合
     const listData = [];  // 列表数据
+    const expandedKeys = []; // 搜索时 展开的节点
 
     const loop = data => data.map(item => {
       const { [rowChildren]: children, [rowKey]: key, [rowTitle]: title, ...otherProps } = item;
       if (children === undefined) {
-        if (showSearch && treeSearchKey.length > 0) { // if tree searching
+        leafKeys.push(key);
+        let nodeTitle = title;
+        if (showSearch && treeSearchKey && treeSearchKey.length > 0) { // if tree searching
           if (title.indexOf(treeSearchKey) > -1) {
-            leafKeys.push(key);
-            const index = title.indexOf(treeSearchKey);
-            const searchTitle = (
+            expandedKeys.push(key);
+            const idx = title.indexOf(treeSearchKey);
+            nodeTitle = (
               <span>
-                {title.substr(0, index)}
+                {title.substr(0, idx)}
                 <span style={{ color: '#f50' }}>{treeSearchKey}</span>
-                {title.substr(index + treeSearchKey.length)}
+                {title.substr(idx + treeSearchKey.length)}
               </span>
             );
-            return <TreeNode key={key} title={searchTitle} isLeaf {...otherProps} />;
           }
-        } else {
-          leafKeys.push(key); 
         }
         if (target.indexOf(key) > -1) {
           listData.push({ key, title });
-          return <TreeNode key={key} title={title} isLeaf {...otherProps} />;
         }
+        return <TreeNode key={key} title={nodeTitle} isLeaf {...otherProps} />;
       } else {
         return (
           <TreeNode key={key} title={title} {...otherProps}>
@@ -82,18 +82,19 @@ class TreeTransfer extends Component {
     return {
       treeNode: loop(source),
       leafKeys,
-      listData
+      listData,
+      expandedKeys
     };
   }
 
-  // 点击树的checkbox
+  // tree checkbox checked
   treeOnCheck = (checkedKeys) => {
     this.setState({
       treeCheckedKeys: checkedKeys.filter(key => this.state.leafKeys.indexOf(key) > -1)
     });
   }
 
-  // 点击列表的checkbox
+  // list checkbox checked
   listOnCheck = (e, checkedKeys) => {
     if (e.target.checked) {
       this.setState({
@@ -106,14 +107,25 @@ class TreeTransfer extends Component {
     }
   }
 
-  // 左侧树搜索 onChange 
+  // left tree search 
   onTreeSearch = (e) => {
     this.setState({
-      listSearchKey: e.target.value
+      treeSearchKey: e.target.value
+    }, () => {
+      const { treeNode, listData, leafKeys, expandedKeys } = this.generate(this.props, this.state);
+      const treeCheckedKeys = listData.map(({key}) => key);
+      this.setState({
+        treeNode,
+        listData,
+        leafKeys,
+        treeCheckedKeys,
+        treeExpandedKeys: uniq([...treeCheckedKeys, ...expandedKeys]),
+        treeAutoExpandParent: true, // 搜索的时候 自动展开父节点设为true
+      });
     });
   }
 
-  // 右侧列表搜索 onChange 
+  // right list search 
   onListSearch = (e) => {
     this.setState({
       listSearchKey: e.target.value
@@ -183,7 +195,7 @@ class TreeTransfer extends Component {
           </div>
           <div className="tree-transfer-panel-body">
             <div className="tree-transfer-panel-body-content">
-              {showSearch ? <div className="tree-transfer-panel-body-content-search"><Search placeholder="请输入搜索关键字" /></div> : null}
+              {showSearch ? <div className="tree-transfer-panel-body-content-search"><Search placeholder="请输入搜索关键字" onChange={this.onTreeSearch} /></div> : null}
               <Tree {...treeProps}>
                 {treeNode}
               </Tree>
