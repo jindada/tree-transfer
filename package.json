@@ -69,7 +69,7 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "jest": "^22.0.3",
     "jsdom": "^11.5.1",
-    "lucio-cli": "^1.1.0-beta.2",
+    "lucio-cli": "^1.1.0-beta.4",
     "rimraf": "^2.6.2"
   },
   "peerDependencies": {
