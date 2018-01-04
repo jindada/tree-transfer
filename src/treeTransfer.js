@@ -195,7 +195,7 @@ class TreeTransfer extends Component {
           </div>
           <div className="tree-transfer-panel-body">
             <div className="tree-transfer-panel-body-content">
-              {showSearch ? <div className="tree-transfer-panel-body-content-search"><Search placeholder="请输入搜索关键字" onChange={this.onTreeSearch} /></div> : null}
+              {showSearch ? <div className="tree-transfer-panel-body-content-search"><Search placeholder="请输入搜索关键字" onSearch={this.onTreeSearch} /></div> : null}
               <Tree {...treeProps}>
                 {treeNode}
               </Tree>
@@ -214,7 +214,7 @@ class TreeTransfer extends Component {
           </div>
           <div className="tree-transfer-panel-body">
             <ul className="tree-transfer-panel-body-content">
-              {showSearch ? <div className="tree-transfer-panel-body-content-search"><Search placeholder="请输入搜索关键字" onChange={this.onListSearch} /></div> : null}
+              {showSearch ? <div className="tree-transfer-panel-body-content-search"><Search placeholder="请输入搜索关键字" onSearch={this.onListSearch} /></div> : null}
               {
                 listNode.map(item => (
                   <li key={item.key}>
