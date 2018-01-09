@@ -34,13 +34,17 @@ class TreeTransfer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { treeNode, listData, leafKeys } = this.generate(nextProps, this.state);
+    const { treeNode, listData, leafKeys, expandedKeys } = this.generate(nextProps, this.state);
     const treeCheckedKeys = listData.map(({key}) => key);
+    const { treeSearchKey, treeExpandedKeys } = this.state;
+    const searching = !!(nextProps.showSearch && treeSearchKey && treeSearchKey.length > 0);
     this.setState({
       treeNode,
       listData,
       leafKeys,
-      treeCheckedKeys
+      treeCheckedKeys,
+      treeExpandedKeys: searching ? uniq([...treeCheckedKeys, ...expandedKeys]) : treeExpandedKeys,
+      treeAutoExpandParent: searching, // 搜索的时候 自动展开父节点设为true
     });
   }
 
@@ -126,20 +130,24 @@ class TreeTransfer extends Component {
   }
 
   // left tree search 
-  onTreeSearch = (e) => {
+  onTreeSearch = (value) => {
     this.setState({
-      treeSearchKey: e.target.value
+      treeSearchKey: value
     }, () => {
-      const { treeNode, listData, leafKeys, expandedKeys } = this.generate(this.props, this.state);
-      const treeCheckedKeys = listData.map(({key}) => key);
-      this.setState({
-        treeNode,
-        listData,
-        leafKeys,
-        treeCheckedKeys,
-        treeExpandedKeys: uniq([...treeCheckedKeys, ...expandedKeys]),
-        treeAutoExpandParent: true, // 搜索的时候 自动展开父节点设为true
-      });
+      if (this.props.onLoadData && this.props.onTreeSearch) { // async search
+        this.props.onTreeSearch(value);
+      } else {
+        const { treeNode, listData, leafKeys, expandedKeys } = this.generate(this.props, this.state);
+        const treeCheckedKeys = listData.map(({key}) => key);
+        this.setState({
+          treeNode,
+          listData,
+          leafKeys,
+          treeCheckedKeys,
+          treeExpandedKeys: uniq([...treeCheckedKeys, ...expandedKeys]),
+          treeAutoExpandParent: true, // 搜索的时候 自动展开父节点设为true
+        });
+      }
     });
   }
 
@@ -151,7 +159,7 @@ class TreeTransfer extends Component {
   }
 
   render() {
-    const { className, loading, sourceTitle, targetTitle, showSearch, onLoadData } = this.props;
+    const { className, treeLoading, sourceTitle, targetTitle, showSearch, onLoadData } = this.props;
     const { treeNode, listData, leafKeys, treeCheckedKeys, listCheckedKeys, treeExpandedKeys, treeAutoExpandParent, listSearchKey, unLoadAlert } = this.state;
     const listNode = listData.filter(item => showSearch ? item.title.indexOf(listSearchKey) > -1 : true);
 
@@ -215,17 +223,17 @@ class TreeTransfer extends Component {
             <span className="tree-transfer-panel-header-select">{`${treeCheckedKeys.length > 0 ? `${treeCheckedKeys.length}/` : ''}${leafKeys.length}`} 条数据</span>
             <span className="tree-transfer-panel-header-title">{sourceTitle}</span>
           </div>
-          <ThingLoading loading={loading} size="small">
-            <div className="tree-transfer-panel-body">
-              <div className="tree-transfer-panel-body-content">
+          <div className="tree-transfer-panel-body">
+            <div className="tree-transfer-panel-body-content">
+              <ThingLoading loading={treeLoading} size="small">
                 {unLoadAlert ? <Alert message="无法选中，原因：子节点未完全加载" banner /> : null}
                 {showSearch ? <div className="tree-transfer-panel-body-content-search"><Search placeholder="请输入搜索关键字" onSearch={this.onTreeSearch} /></div> : null}
                 <Tree {...treeProps}>
                   {treeNode}
                 </Tree>
-              </div>
+              </ThingLoading>
             </div>
-          </ThingLoading>
+          </div>
         </div>
         <div className="tree-transfer-operation">
           <Button {...operaRightButtonProps} />
@@ -263,12 +271,13 @@ TreeTransfer.propTypes = {
   rowChildren: PropTypes.string,
   source: PropTypes.array,
   target: PropTypes.array,
-  loading: PropTypes.bool,
+  treeLoading: PropTypes.bool,
   sourceTitle: PropTypes.string,
   targetTitle: PropTypes.string,
   onChange: PropTypes.func,
   showSearch: PropTypes.bool,
   onLoadData: PropTypes.func,
+  onTreeSearch: PropTypes.func,
 };
 
 TreeTransfer.defaultProps = {
@@ -277,7 +286,7 @@ TreeTransfer.defaultProps = {
   rowChildren: 'children',
   source: [],
   target: [],
-  loading: false,
+  treeLoading: false,
   sourceTitle: '源数据',
   targetTitle: '目的数据',
   showSearch: false

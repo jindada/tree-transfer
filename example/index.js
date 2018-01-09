@@ -12,7 +12,8 @@ class App extends Component {
       source: data,
       target: [],
       asyncSource: async,
-      asyncTarget: []
+      asyncTarget: [],
+      asyncLoading: false
     };
   }
 
@@ -28,7 +29,7 @@ class App extends Component {
     });
   }
 
-  onLoad = (node) => new Promise(resolve => {
+  onLoadData = (node) => new Promise(resolve => {
     if (node.props.children.length > 0) {
       resolve();
       return;
@@ -44,8 +45,21 @@ class App extends Component {
     }
   })
 
+  onTreeSearch = (value) => {
+    this.setState({
+      asyncLoading: true
+    }, () => {
+      setTimeout(() => {
+        this.setState({
+          asyncSource: data,
+          asyncLoading: false
+        });
+      }, 2000);
+    });
+  }
+
   render() {
-    const { source, target, asyncSource, asyncTarget } = this.state;
+    const { source, target, asyncSource, asyncTarget, asyncLoading } = this.state;
 
     const treeTransferProps = {
       source,
@@ -58,12 +72,14 @@ class App extends Component {
     return (
       <div className="lucio-tree-transfer-example">
         <p className="pkname">lucio-tree-transfer</p>
-        <h4>1.普通用法</h4>
+        <h4>1.基本用法</h4>
         <TreeTransfer {...treeTransferProps} />
-        <h4>2.显示搜索</h4>
+        <h4>2.显示搜索框</h4>
         <TreeTransfer {...treeTransferProps} showSearch />
         <h4>3.异步用法</h4>
-        <TreeTransfer {...treeTransferProps} source={asyncSource} target={asyncTarget} onChange={this.onAsyncChange} onLoadData={this.onLoad} />
+        <TreeTransfer {...treeTransferProps} source={asyncSource} target={asyncTarget} onChange={this.onAsyncChange} onLoadData={this.onLoadData} />
+        <h4>3.异步用法，显示搜索框</h4>
+        <TreeTransfer {...treeTransferProps} source={asyncSource} target={asyncTarget} onChange={this.onAsyncChange} onLoadData={this.onLoadData} showSearch onTreeSearch={this.onTreeSearch} treeLoading={asyncLoading} />
         <div className="gh-ribbon"><a href="https://github.com/luciojs/tree-transfer" target="_blank">Fork me on GitHub</a></div>
       </div>
     );
