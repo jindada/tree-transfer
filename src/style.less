@@ -19,6 +19,7 @@
     vertical-align: middle;
     position: relative;
     padding-top: 34px;
+    overflow: auto;
     &-header {
       padding: 8px 12px;
       height: 34px;
@@ -37,11 +38,13 @@
         right: 12px;
       }
     }
+    .lucio-loading {
+      height: 100%;
+    }
     &-body {
       height: 100%;
       font-size: @size;
       position: relative;
-      overflow: auto;
       &-content {
         padding: 0px;
         .ant-alert {

@@ -9,6 +9,7 @@ import Alert from 'antd/lib/alert';
 import uniq from 'lodash.uniq';
 import difference from 'lodash.difference';
 import { hasUnLoadNode } from './utils';
+import { ThingLoading } from 'lucio-loading';
 import './style.less';
 const TreeNode = Tree.TreeNode;
 const Search = Input.Search;
@@ -150,7 +151,7 @@ class TreeTransfer extends Component {
   }
 
   render() {
-    const { className, sourceTitle, targetTitle, showSearch, onLoadData } = this.props;
+    const { className, loading, sourceTitle, targetTitle, showSearch, onLoadData } = this.props;
     const { treeNode, listData, leafKeys, treeCheckedKeys, listCheckedKeys, treeExpandedKeys, treeAutoExpandParent, listSearchKey, unLoadAlert } = this.state;
     const listNode = listData.filter(item => showSearch ? item.title.indexOf(listSearchKey) > -1 : true);
 
@@ -214,15 +215,17 @@ class TreeTransfer extends Component {
             <span className="tree-transfer-panel-header-select">{`${treeCheckedKeys.length > 0 ? `${treeCheckedKeys.length}/` : ''}${leafKeys.length}`} 条数据</span>
             <span className="tree-transfer-panel-header-title">{sourceTitle}</span>
           </div>
-          <div className="tree-transfer-panel-body">
-            <div className="tree-transfer-panel-body-content">
-              {unLoadAlert ? <Alert message="无法选中，原因：子节点未完全加载" banner /> : null}
-              {showSearch ? <div className="tree-transfer-panel-body-content-search"><Search placeholder="请输入搜索关键字" onSearch={this.onTreeSearch} /></div> : null}
-              <Tree {...treeProps}>
-                {treeNode}
-              </Tree>
+          <ThingLoading loading={loading} size="small">
+            <div className="tree-transfer-panel-body">
+              <div className="tree-transfer-panel-body-content">
+                {unLoadAlert ? <Alert message="无法选中，原因：子节点未完全加载" banner /> : null}
+                {showSearch ? <div className="tree-transfer-panel-body-content-search"><Search placeholder="请输入搜索关键字" onSearch={this.onTreeSearch} /></div> : null}
+                <Tree {...treeProps}>
+                  {treeNode}
+                </Tree>
+              </div>
             </div>
-          </div>
+          </ThingLoading>
         </div>
         <div className="tree-transfer-operation">
           <Button {...operaRightButtonProps} />
@@ -260,6 +263,7 @@ TreeTransfer.propTypes = {
   rowChildren: PropTypes.string,
   source: PropTypes.array,
   target: PropTypes.array,
+  loading: PropTypes.bool,
   sourceTitle: PropTypes.string,
   targetTitle: PropTypes.string,
   onChange: PropTypes.func,
@@ -273,6 +277,7 @@ TreeTransfer.defaultProps = {
   rowChildren: 'children',
   source: [],
   target: [],
+  loading: false,
   sourceTitle: '源数据',
   targetTitle: '目的数据',
   showSearch: false
