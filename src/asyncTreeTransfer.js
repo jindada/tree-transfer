@@ -5,8 +5,10 @@ import Button from 'antd/lib/button';
 import Checkbox from 'antd/lib/checkbox';
 import Input from 'antd/lib/input';
 import Tree from 'antd/lib/tree';
+import Alert from 'antd/lib/alert';
 import uniq from 'lodash.uniq';
 import difference from 'lodash.difference';
+import { hasUnLoadNode } from './utils';
 import './style.less';
 const TreeNode = Tree.TreeNode;
 const Search = Input.Search;
@@ -26,6 +28,7 @@ class AsyncTreeTransfer extends Component {
       listCheckedKeys: [],
       treeSearchKey: '',
       listSearchKey: '',
+      unLoadAlert: false,
     };
   }
 
@@ -88,10 +91,24 @@ class AsyncTreeTransfer extends Component {
   }
 
   // tree checkbox checked
-  treeOnCheck = (checkedKeys) => {
-    this.setState({
-      treeCheckedKeys: checkedKeys.filter(key => this.state.leafKeys.indexOf(key) > -1)
-    });
+  treeOnCheck = (checkedKeys, e) => {
+    if (e.checked) {
+      if (hasUnLoadNode([e.node])) {
+        this.setState({
+          unLoadAlert: true
+        });
+      } else {
+        this.setState({
+          treeCheckedKeys: checkedKeys.filter(key => this.state.leafKeys.indexOf(key) > -1),
+          unLoadAlert: false
+        });
+      }
+    } else {
+      this.setState({
+        treeCheckedKeys: checkedKeys.filter(key => this.state.leafKeys.indexOf(key) > -1),
+        unLoadAlert: false
+      });
+    }
   }
 
   // list checkbox checked
@@ -133,8 +150,8 @@ class AsyncTreeTransfer extends Component {
   }
 
   render() {
-    const { className, sourceTotal, sourceTitle, targetTitle, showSearch } = this.props;
-    const { treeNode, listData, leafKeys, treeCheckedKeys, listCheckedKeys, treeExpandedKeys, treeAutoExpandParent, listSearchKey } = this.state;
+    const { className, sourceTotal, sourceTitle, targetTitle, showSearch, onLoadTreeData } = this.props;
+    const { treeNode, listData, unLoadAlert, treeCheckedKeys, listCheckedKeys, treeExpandedKeys, treeAutoExpandParent, listSearchKey } = this.state;
     const listNode = listData.filter(item => showSearch ? item.title.indexOf(listSearchKey) > -1 : true);
 
     const treeTransferClass = classNames({
@@ -149,12 +166,12 @@ class AsyncTreeTransfer extends Component {
       expandedKeys: treeExpandedKeys,
       autoExpandParent: treeAutoExpandParent,
       onExpand: (expandedKeys) => {
-        console.log(expandedKeys);
         this.setState({
           treeAutoExpandParent: false,
           treeExpandedKeys: expandedKeys,
         });
-      }
+      },
+      loadData: onLoadTreeData
     };
 
     const listHeaderCheckProps = {
@@ -195,6 +212,7 @@ class AsyncTreeTransfer extends Component {
           </div>
           <div className="tree-transfer-panel-body">
             <div className="tree-transfer-panel-body-content">
+              {unLoadAlert ? <Alert message="无法选中，原因：子节点未完全加载" banner /> : null}
               {showSearch ? <div className="tree-transfer-panel-body-content-search"><Search placeholder="请输入搜索关键字" onChange={this.onTreeSearch} /></div> : null}
               <Tree {...treeProps}>
                 {treeNode}
@@ -241,6 +259,7 @@ AsyncTreeTransfer.propTypes = {
   sourceTotal: PropTypes.number,
   sourceTitle: PropTypes.string,
   targetTitle: PropTypes.string,
+  onLoadTreeData: PropTypes.func.isRequired,
   onChange: PropTypes.func,
   showSearch: PropTypes.bool
 };
