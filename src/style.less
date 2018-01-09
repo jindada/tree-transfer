@@ -41,26 +41,33 @@
       height: 100%;
       font-size: @size;
       position: relative;
-      overflow: auto;
+      .ant-alert {
+        font-size: @size;
+        .ant-alert-icon {
+          top: @size - 1.5px
+        }
+      }
+      &-search {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        padding: 8px;
+        .ant-input {
+          font-size: @size;
+        }
+      }
+      .lucio-loading {
+        height: 100%;
+        .lucio-loading-content {
+          height: 100%;
+        }
+      }
       &-content {
         padding: 0px;
-        .lucio-loading {
-          height: 264px;
-        }
-        .ant-alert {
-          font-size: @size;
-          .ant-alert-icon {
-            top: @size - 1.5px
-          }
-        }
+        overflow: auto;
+        height: 100%;
         .ant-tree {
           font-size: @size;
-        }
-        &-search {
-          padding: 8px;
-          .ant-input {
-            font-size: @size;
-          }
         }
         li {
           padding: 8px 8px 8px 12px;
@@ -73,6 +80,9 @@
             background-color: #d2eafb;
           }
         }
+      }
+      &-has-search {
+        padding-top: 46px;
       }
     }
   }

@@ -152,20 +152,24 @@ class TreeTransfer extends Component {
   }
 
   // right list search 
-  onListSearch = (e) => {
+  onListSearch = (value) => {
     this.setState({
-      listSearchKey: e.target.value
+      listSearchKey: value
     });
   }
 
   render() {
     const { className, treeLoading, sourceTitle, targetTitle, showSearch, onLoadData } = this.props;
     const { treeNode, listData, leafKeys, treeCheckedKeys, listCheckedKeys, treeExpandedKeys, treeAutoExpandParent, listSearchKey, unLoadAlert } = this.state;
-    const listNode = listData.filter(item => showSearch ? item.title.indexOf(listSearchKey) > -1 : true);
 
     const treeTransferClass = classNames({
       'lucio-tree-transfer': true,
       [className]: !!className
+    });
+
+    const treeTransferPanelBodyClass = classNames({
+      'tree-transfer-panel-body': true,
+      'tree-transfer-panel-body-has-search': showSearch,
     });
 
     const treeProps = {
@@ -223,16 +227,16 @@ class TreeTransfer extends Component {
             <span className="tree-transfer-panel-header-select">{`${treeCheckedKeys.length > 0 ? `${treeCheckedKeys.length}/` : ''}${leafKeys.length}`} 条数据</span>
             <span className="tree-transfer-panel-header-title">{sourceTitle}</span>
           </div>
-          <div className="tree-transfer-panel-body">
-            <div className="tree-transfer-panel-body-content">
-              <ThingLoading loading={treeLoading} size="small">
-                {unLoadAlert ? <Alert message="无法选中，原因：子节点未完全加载" banner /> : null}
-                {showSearch ? <div className="tree-transfer-panel-body-content-search"><Search placeholder="请输入搜索关键字" onSearch={this.onTreeSearch} /></div> : null}
+          <div className={treeTransferPanelBodyClass}>
+            {showSearch ? <div className="tree-transfer-panel-body-search"><Search placeholder="请输入搜索关键字" onSearch={this.onTreeSearch} /></div> : null}
+            <ThingLoading loading={treeLoading} size="small">
+              {unLoadAlert ? <div className="tree-transfer-panel-body-alert"><Alert message="无法选中，原因：子节点未完全加载" banner /></div> : null}
+              <div className="tree-transfer-panel-body-content">  
                 <Tree {...treeProps}>
                   {treeNode}
                 </Tree>
-              </ThingLoading>
-            </div>
+              </div>
+            </ThingLoading>
           </div>
         </div>
         <div className="tree-transfer-operation">
@@ -242,17 +246,25 @@ class TreeTransfer extends Component {
         <div className="tree-transfer-panel tree-transfer-panel-right">
           <div className="tree-transfer-panel-header">
             <Checkbox {...listHeaderCheckProps} />
-            <span className="tree-transfer-panel-header-select">{`${listCheckedKeys.length > 0 ? `${listCheckedKeys.length}/` : ''}${listNode.length}`} 条数据</span>
+            <span className="tree-transfer-panel-header-select">{`${listCheckedKeys.length > 0 ? `${listCheckedKeys.length}/` : ''}${listData.length}`} 条数据</span>
             <span className="tree-transfer-panel-header-title">{targetTitle}</span>
           </div>
-          <div className="tree-transfer-panel-body">
+          <div className={treeTransferPanelBodyClass}>
+            {showSearch ? <div className="tree-transfer-panel-body-search"><Search placeholder="请输入搜索关键字" onSearch={this.onListSearch} /></div> : null}
             <ul className="tree-transfer-panel-body-content">
-              {showSearch ? <div className="tree-transfer-panel-body-content-search"><Search placeholder="请输入搜索关键字" onSearch={this.onListSearch} /></div> : null}
               {
-                listNode.map(item => (
+                listData.map(item => (
                   <li key={item.key}>
                     <Checkbox checked={listCheckedKeys.indexOf(item.key) > -1} onChange={(e) => this.listOnCheck(e, [item.key])} />
-                    <span>{item.title}</span>
+                    {
+                      showSearch && listSearchKey && listSearchKey.length > 0 && item.title.indexOf(listSearchKey) > -1 ? (
+                        <span>
+                          {item.title.substr(0, item.title.indexOf(listSearchKey))}
+                          <span style={{ color: '#f50' }}>{listSearchKey}</span>
+                          {item.title.substr(item.title.indexOf(listSearchKey) + listSearchKey.length)}
+                        </span>
+                      ) : <span>{item.title}</span>
+                    }
                   </li>
                 ))
               }
