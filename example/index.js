@@ -58,11 +58,11 @@ class App extends Component {
     return (
       <div className="lucio-tree-transfer-example">
         <p className="pkname">lucio-tree-transfer</p>
-        <h4>普通用法</h4>
+        <h4>1.普通用法</h4>
         <TreeTransfer {...treeTransferProps} />
-        <h4>显示搜索</h4>
+        <h4>2.显示搜索</h4>
         <TreeTransfer {...treeTransferProps} showSearch />
-        <h4>异步用法</h4>
+        <h4>3.异步用法</h4>
         <TreeTransfer {...treeTransferProps} source={asyncSource} target={asyncTarget} onChange={this.onAsyncChange} onLoadData={this.onLoad} />
         <div className="gh-ribbon"><a href="https://github.com/luciojs/tree-transfer" target="_blank">Fork me on GitHub</a></div>
       </div>
