@@ -28,6 +28,9 @@
     "transform": {
       "^.+\\.js$": "babel-jest"
     },
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
     "moduleNameMapper": {
       "\\.(css|less)$": "<rootDir>/test/styleMock.js"
     }
@@ -68,6 +71,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.0",
     "jest": "^22.0.3",
     "jsdom": "^11.5.1",
     "lucio-cli": "^1.1.0-beta.4",
