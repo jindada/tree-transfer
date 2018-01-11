@@ -206,3 +206,441 @@ exports[`TreeTransfer renders correctly 1`] = `
   </div>
 </div>
 `;
+
+exports[`TreeTransfer should support loading 1`] = `
+<div
+  class="lucio-tree-transfer"
+>
+  <div
+    class="tree-transfer-panel tree-transfer-panel-left"
+  >
+    <div
+      class="tree-transfer-panel-header"
+    >
+      <span
+        class="tree-transfer-panel-header-select"
+      >
+        1/2 条数据
+      </span>
+      <span
+        class="tree-transfer-panel-header-title"
+      >
+        源数据
+      </span>
+    </div>
+    <div
+      class="tree-transfer-panel-body"
+    >
+      <div
+        class="lucio-loading"
+      >
+        <div
+          class="lucio-loading-element"
+        >
+          <div
+            class="thing-loading thing-loading-sm"
+          >
+            <div
+              class="beam r1 r"
+              style="background-color:#1890ff"
+            />
+            <div
+              class="beam r3 r"
+              style="background-color:#1890ff"
+            />
+            <div
+              class="beam b1 b"
+              style="background-color:#ffd454"
+            />
+            <div
+              class="beam b3 b"
+              style="background-color:#ffd454"
+            />
+          </div>
+        </div>
+        <div
+          class="lucio-loading-content lucio-loading-blur"
+        >
+          <div
+            class="tree-transfer-panel-body-content"
+          >
+            <ul
+              class="ant-tree"
+              role="tree-node"
+              unselectable="on"
+            >
+              <li
+                class=""
+              >
+                <span
+                  class="ant-tree-switcher ant-tree-switcher_open"
+                />
+                <span
+                  class="ant-tree-checkbox ant-tree-checkbox-indeterminate"
+                >
+                  <span
+                    class="ant-tree-checkbox-inner"
+                  />
+                </span>
+                <span
+                  class="ant-tree-node-content-wrapper ant-tree-node-content-wrapper-open"
+                  title="0"
+                >
+                  <span
+                    class="ant-tree-title"
+                  >
+                    0
+                  </span>
+                </span>
+                <ul
+                  class="ant-tree-child-tree ant-tree-child-tree-open"
+                  data-expanded="true"
+                >
+                  <li
+                    class=""
+                  >
+                    <span
+                      class="ant-tree-switcher ant-tree-switcher-noop"
+                    />
+                    <span
+                      class="ant-tree-checkbox"
+                    >
+                      <span
+                        class="ant-tree-checkbox-inner"
+                      />
+                    </span>
+                    <span
+                      class="ant-tree-node-content-wrapper ant-tree-node-content-wrapper-normal"
+                      title="0-0"
+                    >
+                      <span
+                        class="ant-tree-title"
+                      >
+                        0-0
+                      </span>
+                    </span>
+                  </li>
+                  <li
+                    class=""
+                  >
+                    <span
+                      class="ant-tree-switcher ant-tree-switcher-noop"
+                    />
+                    <span
+                      class="ant-tree-checkbox ant-tree-checkbox-checked"
+                    >
+                      <span
+                        class="ant-tree-checkbox-inner"
+                      />
+                    </span>
+                    <span
+                      class="ant-tree-node-content-wrapper ant-tree-node-content-wrapper-normal"
+                      title="0-1"
+                    >
+                      <span
+                        class="ant-tree-title"
+                      >
+                        0-1
+                      </span>
+                    </span>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="tree-transfer-operation"
+  >
+    <button
+      class="ant-btn ant-btn-primary ant-btn-sm ant-btn-icon-only"
+      disabled=""
+      type="button"
+    >
+      <i
+        class="anticon anticon-right"
+      />
+    </button>
+    <button
+      class="ant-btn ant-btn-primary ant-btn-sm ant-btn-icon-only"
+      disabled=""
+      type="button"
+    >
+      <i
+        class="anticon anticon-left"
+      />
+    </button>
+  </div>
+  <div
+    class="tree-transfer-panel tree-transfer-panel-right"
+  >
+    <div
+      class="tree-transfer-panel-header"
+    >
+      <label
+        class="ant-checkbox-wrapper"
+      >
+        <span
+          class="ant-checkbox"
+        >
+          <input
+            class="ant-checkbox-input"
+            type="checkbox"
+          />
+          <span
+            class="ant-checkbox-inner"
+          />
+        </span>
+      </label>
+      <span
+        class="tree-transfer-panel-header-select"
+      >
+        1 条数据
+      </span>
+      <span
+        class="tree-transfer-panel-header-title"
+      >
+        目的数据
+      </span>
+    </div>
+    <div
+      class="tree-transfer-panel-body"
+    >
+      <ul
+        class="tree-transfer-panel-body-content"
+      >
+        <li>
+          <label
+            class="ant-checkbox-wrapper"
+          >
+            <span
+              class="ant-checkbox"
+            >
+              <input
+                class="ant-checkbox-input"
+                type="checkbox"
+              />
+              <span
+                class="ant-checkbox-inner"
+              />
+            </span>
+          </label>
+          <span>
+            0-1
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`TreeTransfer should support sourceTitle and targetTitle 1`] = `
+<div
+  class="lucio-tree-transfer"
+>
+  <div
+    class="tree-transfer-panel tree-transfer-panel-left"
+  >
+    <div
+      class="tree-transfer-panel-header"
+    >
+      <span
+        class="tree-transfer-panel-header-select"
+      >
+        1/2 条数据
+      </span>
+      <span
+        class="tree-transfer-panel-header-title"
+      >
+        1
+      </span>
+    </div>
+    <div
+      class="tree-transfer-panel-body"
+    >
+      <div
+        class="lucio-loading"
+      >
+        <div
+          class="lucio-loading-content"
+        >
+          <div
+            class="tree-transfer-panel-body-content"
+          >
+            <ul
+              class="ant-tree"
+              role="tree-node"
+              unselectable="on"
+            >
+              <li
+                class=""
+              >
+                <span
+                  class="ant-tree-switcher ant-tree-switcher_open"
+                />
+                <span
+                  class="ant-tree-checkbox ant-tree-checkbox-indeterminate"
+                >
+                  <span
+                    class="ant-tree-checkbox-inner"
+                  />
+                </span>
+                <span
+                  class="ant-tree-node-content-wrapper ant-tree-node-content-wrapper-open"
+                  title="0"
+                >
+                  <span
+                    class="ant-tree-title"
+                  >
+                    0
+                  </span>
+                </span>
+                <ul
+                  class="ant-tree-child-tree ant-tree-child-tree-open"
+                  data-expanded="true"
+                >
+                  <li
+                    class=""
+                  >
+                    <span
+                      class="ant-tree-switcher ant-tree-switcher-noop"
+                    />
+                    <span
+                      class="ant-tree-checkbox"
+                    >
+                      <span
+                        class="ant-tree-checkbox-inner"
+                      />
+                    </span>
+                    <span
+                      class="ant-tree-node-content-wrapper ant-tree-node-content-wrapper-normal"
+                      title="0-0"
+                    >
+                      <span
+                        class="ant-tree-title"
+                      >
+                        0-0
+                      </span>
+                    </span>
+                  </li>
+                  <li
+                    class=""
+                  >
+                    <span
+                      class="ant-tree-switcher ant-tree-switcher-noop"
+                    />
+                    <span
+                      class="ant-tree-checkbox ant-tree-checkbox-checked"
+                    >
+                      <span
+                        class="ant-tree-checkbox-inner"
+                      />
+                    </span>
+                    <span
+                      class="ant-tree-node-content-wrapper ant-tree-node-content-wrapper-normal"
+                      title="0-1"
+                    >
+                      <span
+                        class="ant-tree-title"
+                      >
+                        0-1
+                      </span>
+                    </span>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="tree-transfer-operation"
+  >
+    <button
+      class="ant-btn ant-btn-primary ant-btn-sm ant-btn-icon-only"
+      disabled=""
+      type="button"
+    >
+      <i
+        class="anticon anticon-right"
+      />
+    </button>
+    <button
+      class="ant-btn ant-btn-primary ant-btn-sm ant-btn-icon-only"
+      disabled=""
+      type="button"
+    >
+      <i
+        class="anticon anticon-left"
+      />
+    </button>
+  </div>
+  <div
+    class="tree-transfer-panel tree-transfer-panel-right"
+  >
+    <div
+      class="tree-transfer-panel-header"
+    >
+      <label
+        class="ant-checkbox-wrapper"
+      >
+        <span
+          class="ant-checkbox"
+        >
+          <input
+            class="ant-checkbox-input"
+            type="checkbox"
+          />
+          <span
+            class="ant-checkbox-inner"
+          />
+        </span>
+      </label>
+      <span
+        class="tree-transfer-panel-header-select"
+      >
+        1 条数据
+      </span>
+      <span
+        class="tree-transfer-panel-header-title"
+      >
+        2
+      </span>
+    </div>
+    <div
+      class="tree-transfer-panel-body"
+    >
+      <ul
+        class="tree-transfer-panel-body-content"
+      >
+        <li>
+          <label
+            class="ant-checkbox-wrapper"
+          >
+            <span
+              class="ant-checkbox"
+            >
+              <input
+                class="ant-checkbox-input"
+                type="checkbox"
+              />
+              <span
+                class="ant-checkbox-inner"
+              />
+            </span>
+          </label>
+          <span>
+            0-1
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;

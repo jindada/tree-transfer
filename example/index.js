@@ -10,7 +10,7 @@ class App extends Component {
     super(props);
     this.state = {
       source: data,
-      target: [],
+      target: ['1-1-1'],
       asyncSource: async,
       asyncTarget: [],
       asyncLoading: false
