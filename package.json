@@ -7,7 +7,7 @@
     "start": "lucio start",
     "eslint": "lucio eslint",
     "prebuild:gh-pages": "npm run eslint && npm run test",
-    "build:gh-pages": "npm run test && lucio build",
+    "build:gh-pages": "lucio build",
     "prebuild": "npm run eslint && npm run test",
     "build": "lucio library -c .luciorc.lib.js",
     "test": "jest",
