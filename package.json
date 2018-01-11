@@ -4,15 +4,7 @@
   "description": "react tree transfer components",
   "main": "dist/index.js",
   "scripts": {
-    "start": "lucio start",
-    "eslint": "lucio eslint",
-    "prebuild:gh-pages": "npm run eslint && npm run test",
-    "build:gh-pages": "npm run test && lucio build",
-    "prebuild": "npm run eslint && npm run test",
-    "build": "lucio library -c .luciorc.lib.js",
-    "test": "jest",
-    "coverage": "jest --coverage",
-    "codecov": "codecov --token=28bebdf1-7240-4033-87bb-1c7143cf660e"
+    "build": "rimraf index.* && cp gh-pages/* ./ && rimraf gh-pages"
   },
   "jest": {
     "setupFiles": [

@@ -1,9 +1,0 @@
-example
-src
-node_modules
-test
-gh-pages
-coverage
-npm-debug.log
-.luciorc.js
-.luciorc.lib.js
