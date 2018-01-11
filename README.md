@@ -33,14 +33,6 @@ online example: https://luciojs.github.io/tree-transfer/
 ## Usage
 
 ```js
-import TreeTransfer from 'lucio-tree-transfer';
-React.render(<TreeTransfer />, container);
-```
-
-
-## Used
-
-```
 import React, { Component } from 'react';
 import { TreeTransfer } from 'loading';
 
@@ -85,10 +77,10 @@ render(<App />, document.querySelector('#app'));
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| className | 选择器 className | String | '' |
-| rowKey | 指定数据列的key | String | '' |
-| rowTitle | 指定数据列的title | String | '' |
-| rowChildren | 指定数据列的children | String | '' |
+| className | 选择器 className | String | - |
+| rowKey | 指定数据列的key | String | 'key' |
+| rowTitle | 指定数据列的title | String | 'title' |
+| rowChildren | 指定数据列的children | String | 'children' |
 | source | 数据源，其中的数据将会被渲染到左侧框（Tree）中 | Array | [] |
 | target | 显示在右侧框数据的key集合 | Array | [] |
 | sourceTitle | 左侧框标题 | String | '源数据' |
