@@ -1,6 +1,6 @@
 {
   "name": "lucio-tree-transfer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "react tree transfer components",
   "main": "dist/index.js",
   "scripts": {
