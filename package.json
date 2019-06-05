@@ -57,7 +57,7 @@
   },
   "homepage": "https://github.com/luciojs/tree-transfer#readme",
   "dependencies": {
-    "antd": "^3.0.3",
+    "antd": "^3.19.2",
     "classnames": "^2.2.5",
     "lodash.difference": "^4.5.0",
     "lodash.uniq": "^4.5.0",
