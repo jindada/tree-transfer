@@ -34,7 +34,7 @@ online example: https://luciojs.github.io/tree-transfer/
 
 ```js
 import React, { Component } from 'react';
-import { TreeTransfer } from 'loading';
+import TreeTransfer from 'lucio-tree-transfer';
 
 const source = [
   {
