@@ -1,6 +1,6 @@
 {
   "name": "lucio-tree-transfer",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "react tree transfer components",
   "main": "dist/index.js",
   "scripts": {
@@ -58,13 +58,9 @@
   },
   "homepage": "https://github.com/luciojs/tree-transfer#readme",
   "dependencies": {
-    "antd": "^3.19.2",
     "classnames": "^2.2.5",
     "lodash.difference": "^4.5.0",
-    "lodash.uniq": "^4.5.0",
-    "prop-types": "^15.6.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "lodash.uniq": "^4.5.0"
   },
   "devDependencies": {
     "babel-jest": "^22.0.3",
@@ -82,6 +78,7 @@
   "peerDependencies": {
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0",
+    "prop-types": ">=15.6.0",
     "antd": ">=3.0.0"
   }
 }
