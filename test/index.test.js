@@ -43,7 +43,7 @@ describe('TreeTransfer', () => {
     const wrapper = mount(<TreeTransfer {...treeTransferProps} onChange={handleChange} />);
     wrapper.find('.ant-tree').find('.ant-tree-checkbox').at(0).simulate('click');
     wrapper.find('.tree-transfer-operation').find('button').at(0).simulate('click');
-    expect(handleChange).toHaveBeenLastCalledWith(['0-0', '0-1']);
+    expect(handleChange).toHaveBeenLastCalledWith(['0-1', '0-0']);
   });
 
   it('should move unselected tree leafs to right list', () => {

@@ -3,6 +3,7 @@ import 'antd/lib/checkbox/style';
 import 'antd/lib/tree/style';
 import 'antd/lib/input/style';
 import 'antd/lib/alert/style';
+import 'antd/lib/spin/style';
 
 import TreeTransfer from './treeTransfer';
 

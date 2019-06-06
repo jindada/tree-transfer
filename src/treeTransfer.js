@@ -6,10 +6,10 @@ import Checkbox from 'antd/lib/checkbox';
 import Input from 'antd/lib/input';
 import Tree from 'antd/lib/tree';
 import Alert from 'antd/lib/alert';
+import Spin from 'antd/lib/spin';
 import uniq from 'lodash.uniq';
 import difference from 'lodash.difference';
 import { hasUnLoadNode } from './utils';
-import { ThingLoading } from 'lucio-loading';
 import './style.less';
 const TreeNode = Tree.TreeNode;
 const Search = Input.Search;
@@ -229,14 +229,14 @@ class TreeTransfer extends Component {
           </div>
           <div className={treeTransferPanelBodyClass}>
             {showSearch ? <div className="tree-transfer-panel-body-search"><Search placeholder="请输入搜索关键字" onSearch={this.onTreeSearch} /></div> : null}
-            <ThingLoading loading={treeLoading} size="small">
+            <Spin spinning={treeLoading} size="small">
               {unLoadAlert ? <div className="tree-transfer-panel-body-alert"><Alert message="无法选中，原因：子节点未完全加载" banner /></div> : null}
               <div className="tree-transfer-panel-body-content">  
                 <Tree {...treeProps}>
                   {treeNode}
                 </Tree>
               </div>
-            </ThingLoading>
+            </Spin>
           </div>
         </div>
         <div className="tree-transfer-operation">
