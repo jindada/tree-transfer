@@ -1,4 +1,4 @@
-## lucio-tree-transfer
+## antd-tree-transfer (old: lucio-tree-transfer)
 ---
 
 React tree transfer Component with antd
@@ -7,13 +7,13 @@ React tree transfer Component with antd
 
 </p>
 
-[![NPM version](https://img.shields.io/npm/v/lucio-tree-transfer.svg?style=flat)](https://npmjs.org/package/lucio-tree-transfer)
-[![NPM downloads](http://img.shields.io/npm/dm/lucio-tree-transfer.svg?style=flat)](https://npmjs.org/package/lucio-tree-transfer)
-[![Test coverage](https://img.shields.io/codecov/c/github/luciojs/tree-transfer/master.svg?style=flat-square)](https://codecov.io/gh/luciojs/tree-transfer/branch/master)
+[![NPM version](https://img.shields.io/npm/v/antd-tree-transfer.svg?style=flat)](https://npmjs.org/package/antd-tree-transfer)
+[![NPM downloads](http://img.shields.io/npm/dm/antd-tree-transfer.svg?style=flat)](https://npmjs.org/package/antd-tree-transfer)
+[![Test coverage](https://img.shields.io/codecov/c/github/jindada/tree-transfer/master.svg?style=flat-square)](https://codecov.io/gh/luciojs/tree-transfer/branch/master)
 
 ## Install
 
-[![rc-rate](https://nodei.co/npm/lucio-tree-transfer.png)](https://npmjs.org/package/lucio-tree-transfer)
+[![rc-rate](https://nodei.co/npm/antd-tree-transfer.png)](https://npmjs.org/package/antd-tree-transfer)
 
 
 ## Development
@@ -27,14 +27,14 @@ npm start
 
 http://localhost:9000/
 
-online example: https://luciojs.github.io/tree-transfer/
+online example: https://jindada.github.io/tree-transfer/
 
 
 ## Usage
 
 ```js
 import React, { Component } from 'react';
-import TreeTransfer from 'lucio-tree-transfer';
+import TreeTransfer from 'antd-tree-transfer';
 
 const source = [
   {
@@ -92,4 +92,4 @@ render(<App />, document.querySelector('#app'));
 
 ## License
 
-lucio-tree-transfer is released under the MIT license.
+antd-tree-transfer is released under the MIT license.

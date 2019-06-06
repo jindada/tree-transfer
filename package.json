@@ -1,7 +1,7 @@
 {
-  "name": "lucio-tree-transfer",
-  "version": "0.0.5",
-  "description": "react tree transfer components",
+  "name": "antd-tree-transfer",
+  "version": "0.0.1",
+  "description": "react tree transfer components by antd",
   "main": "dist/index.js",
   "scripts": {
     "start": "lucio start",
