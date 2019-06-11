@@ -81,7 +81,7 @@ class TreeTransfer extends Component {
       } else {
         return (
           <TreeNode key={key} title={title} {...otherProps}>
-            {loop(item.children)}
+            {loop(children)}
           </TreeNode>
         );
       }
