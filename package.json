@@ -1,6 +1,6 @@
 {
   "name": "antd-tree-transfer",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "react tree transfer components by antd",
   "main": "dist/index.js",
   "scripts": {
@@ -49,14 +49,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/luciojs/tree-transfer.git"
+    "url": "git+https://github.com/jindada/tree-transfer.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/luciojs/tree-transfer/issues"
+    "url": "https://github.com/jindada/tree-transfer/issues"
   },
-  "homepage": "https://github.com/luciojs/tree-transfer#readme",
+  "homepage": "https://github.com/jindada/tree-transfer#readme",
   "dependencies": {
     "classnames": "^2.2.5",
     "lodash.difference": "^4.5.0",

@@ -16,5 +16,5 @@ export const hasUnLoadNode = (node) => {
 
 export const unique = (array, key) => {
   const res = new Map();
-  return array.filter(item => !res.has(item[key]) && res.set(item[key], 1))
-}
+  return array.filter(item => !res.has(item[key]) && res.set(item[key], 1));
+};
