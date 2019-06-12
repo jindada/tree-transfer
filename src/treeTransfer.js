@@ -9,7 +9,7 @@ import Alert from 'antd/lib/alert';
 import Spin from 'antd/lib/spin';
 import uniq from 'lodash.uniq';
 import difference from 'lodash.difference';
-import { hasUnLoadNode } from './utils';
+import { hasUnLoadNode, unique } from './utils';
 import './style.less';
 const TreeNode = Tree.TreeNode;
 const Search = Input.Search;
@@ -90,7 +90,7 @@ class TreeTransfer extends Component {
     return {
       treeNode: loop(source),
       leafKeys,
-      listData,
+      listData: unique(listData, 'key'),
       expandedKeys
     };
   }
