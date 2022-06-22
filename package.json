@@ -71,7 +71,7 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.0",
     "jest": "^22.0.3",
-    "jsdom": "^11.5.1",
+    "jsdom": "^16.5.0",
     "lucio-cli": "^1.1.0-beta.4",
     "rimraf": "^2.6.2"
   },
